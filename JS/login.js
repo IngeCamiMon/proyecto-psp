@@ -1,4 +1,3 @@
-
 // Configuración básica de validación
 const CONFIG = {
     validation: {
@@ -67,13 +66,18 @@ class ValidationSystem {
     }
 }
 
-// Inicialización simple
 document.addEventListener("DOMContentLoaded", () => {
     const usernameInput = document.getElementById('username');
     const passwordInput = document.getElementById('password');
     const usernameError = document.getElementById('username-error');
     const passwordError = document.getElementById('password-error');
     const form = document.getElementById('loginForm');
+    const statusMessage = document.getElementById('statusMessage');
+    const submitButton = document.getElementById('submitButton');
+    const loadingSpinner = submitButton.querySelector(".loading-spinner");
+    const togglePasswordBtn = document.querySelector(".toggle-password");
+    const eyeOpen = togglePasswordBtn.querySelector(".eye-open");
+    const eyeClosed = togglePasswordBtn.querySelector(".eye-closed");
 
     const validator = new ValidationSystem();
 
@@ -87,18 +91,45 @@ document.addEventListener("DOMContentLoaded", () => {
         passwordError.textContent = result.isValid ? '' : result.message;
     });
 
+    togglePasswordBtn.addEventListener("click", () => {
+        const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+        passwordInput.setAttribute("type", type);
+        eyeOpen.style.display = type === "text" ? "none" : "inline";
+        eyeClosed.style.display = type === "text" ? "inline" : "none";
+    });
+
     form.addEventListener('submit', (e) => {
         e.preventDefault();
-        const userResult = validator.validateUsername(usernameInput.value.trim());
-        const passResult = validator.validatePassword(passwordInput.value);
+        const username = usernameInput.value.trim();
+        const password = passwordInput.value;
+
+        const userResult = validator.validateUsername(username);
+        const passResult = validator.validatePassword(password);
 
         usernameError.textContent = userResult.isValid ? '' : userResult.message;
         passwordError.textContent = passResult.isValid ? '' : passResult.message;
 
         if (userResult.isValid && passResult.isValid) {
-            alert('Formulario validado correctamente.');
+            submitButton.disabled = true;
+            loadingSpinner.style.display = "inline-flex";
+
+            setTimeout(() => {
+                // Simulación de autenticación
+                const isAuth = username === "admin" && password === "Admin123!";
+
+                loadingSpinner.style.display = "none";
+                submitButton.disabled = false;
+
+                statusMessage.style.display = "block";
+                statusMessage.className = "status-message " + (isAuth ? "success" : "error");
+                statusMessage.textContent = isAuth
+                    ? "Inicio de sesión exitoso. ¡Bienvenido!"
+                    : "Credenciales incorrectas. Intenta de nuevo.";
+            }, 1500);
         } else {
-            alert('Por favor corrige los errores.');
+            statusMessage.style.display = "block";
+            statusMessage.className = "status-message error";
+            statusMessage.textContent = "Por favor corrige los errores antes de continuar.";
         }
     });
 });
