@@ -82,16 +82,17 @@ html {
 }
 
 body {
-    background: var(--gradient-primary);
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: var(--spacing-lg);
-    color: var(--text-primary);
-    font-size: var(--font-size-base);
-    line-height: 1.6;
+  background: var(--gradient-primary);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: var(--text-primary);
+  font-size: var(--font-size-base);
+  font-family: var(--font-family);
+  line-height: 1.6;
 }
+
 
 /* ==========================================
    CONTENEDOR PRINCIPAL
@@ -555,4 +556,190 @@ body {
     .form-input:hover:not(:focus) {
         border-color: var(--text-secondary);
     }
+}
+/* ======== EXTENSIONES PARA FORMULARIOS ADICIONALES ======== */
+
+/* Estilo uniforme para formularios generales */
+.general-form-container {
+    background: var(--background-card);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-md);
+    width: 100%;
+    max-width: 500px;
+    padding: var(--spacing-xl);
+    margin: auto;
+}
+
+/* Áreas de texto como textarea */
+textarea.form-input {
+    resize: vertical;
+    min-height: 120px;
+}
+
+/* Botón secundario o alternativo */
+.secondary-button {
+    background: var(--gradient-secondary);
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: var(--border-radius-md);
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
+}
+
+.secondary-button:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+/* Título de formulario */
+.form-title {
+    font-size: var(--font-size-2xl);
+    font-weight: 600;
+    margin-bottom: var(--spacing-lg);
+    color: var(--text-primary);
+    text-align: center;
+}
+
+/* Estilo para campos en columnas (ej. reserva de mesa) */
+.form-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+}
+
+.form-row .form-group {
+    flex: 1 1 48%;
+}
+
+/* Mensajes adaptados para formularios múltiples */
+.status-message.success {
+    background-color: rgba(34, 197, 94, 0.1);
+    color: var(--success-color);
+    border: 1px solid rgba(34, 197, 94, 0.2);
+}
+
+.status-message.error {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: var(--error-color);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+/* Formulario responsive para móviles */
+@media (max-width: 480px) {
+    .form-row .form-group {
+        flex: 1 1 100%;
+    }
+
+    .general-form-container {
+        padding: var(--spacing-lg);
+    }
+}
+
+/* ========== HEADER ========= */
+.main-header {
+  background: var(--primary-dark);
+  padding: var(--spacing-md) var(--spacing-lg);
+  color: white;
+  box-shadow: var(--shadow-md);
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.logo {
+  font-size: var(--font-size-2xl);
+  font-weight: 700;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: var(--spacing-lg);
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  transition: var(--transition-fast);
+}
+
+.nav-links a:hover {
+  color: var(--warning-color);
+}
+
+/* ========== FOOTER ========= */
+.main-footer {
+  background: var(--primary-dark);
+  color: white;
+  text-align: center;
+  padding: var(--spacing-md);
+  margin-top: var(--spacing-xl);
+  font-size: var(--font-size-sm);
+  box-shadow: var(--shadow-md);
+}
+
+/* ========== RESPONSIVE ========= */
+@media (max-width: 600px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-sm);
+  }
+}
+main {
+  padding: var(--spacing-lg);
+}
+
+.menu-list {
+  list-style: none;
+  padding: 0;
+  margin-top: var(--spacing-lg);
+}
+
+.menu-list li {
+  padding: var(--spacing-sm);
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.menu-list button {
+  margin-left: var(--spacing-sm);
+}
+.menu-list {
+  list-style: none;
+  padding: 0;
+  margin-top: var(--spacing-lg);
+}
+
+.menu-list li {
+  padding: var(--spacing-sm);
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.menu-list button {
+  margin-left: var(--spacing-sm);
 }

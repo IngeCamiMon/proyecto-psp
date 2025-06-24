@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="CSS/estilos.css" />
+    <title>Contacto</title>
+  </head>
+  <body>
+    <!-- HEADER cargado dinámicamente -->
+    <div id="header"></div>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="general-form-container">
+      <h2 class="form-title">Contáctanos</h2>
+      <form id="contactForm" class="login-form">
+        <div class="form-group">
+          <label for="nombre" class="form-label">Nombre</label>
+          <input type="text" id="nombre" class="form-input" required />
+        </div>
+        <div class="form-group">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" id="email" class="form-input" required />
+        </div>
+        <div class="form-group">
+          <label for="mensaje" class="form-label">Mensaje</label>
+          <textarea id="mensaje" class="form-input" rows="4" required></textarea>
+        </div>
+        <button type="submit" class="submit-button">Enviar</button>
+        <div id="contact-status" class="status-message" style="display: none"></div>
+      </form>
+    </main>
+
+    <!-- FOOTER cargado dinámicamente -->
+    <div id="footer"></div>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js"></script>
+
+    <!-- Scripts -->
+    <script src="JS/contacto.js"></script>
+    <script src="JS/plantilla.js"></script>
+  </body>
+</html>
