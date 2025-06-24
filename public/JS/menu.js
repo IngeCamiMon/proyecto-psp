@@ -1,6 +1,3 @@
-import { db } from "./firebase-config.js";
-import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
 document.getElementById("menuForm").addEventListener("submit", async function (e) {
   e.preventDefault();
 
@@ -13,11 +10,11 @@ document.getElementById("menuForm").addEventListener("submit", async function (e
 
   if (camposValidos) {
     try {
-      await addDoc(collection(db, "menu"), {
+      await firebase.firestore().collection("menu").add({
         nombre,
         precio,
         categoria,
-        createdAt: serverTimestamp()
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
       });
 
       status.className = "status-message success";

@@ -1,7 +1,3 @@
-// contacto.js
-import { db } from "./firebase-config.js";
-import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
 const contactForm = document.getElementById("contactForm");
 const status = document.getElementById("contact-status");
 
@@ -16,16 +12,16 @@ contactForm.addEventListener("submit", async function (e) {
 
   if (nombre && mensaje && emailValido) {
     try {
-      await addDoc(collection(db, "contactos"), {
+      await firebase.firestore().collection("contactos").add({
         nombre,
         email,
         mensaje,
-        timestamp: serverTimestamp()
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
       });
 
       status.className = "status-message success";
       status.textContent = "Mensaje enviado correctamente.";
-      contactForm.reset(); // Limpia el formulario
+      contactForm.reset();
     } catch (error) {
       console.error("Error al guardar el mensaje:", error);
       status.className = "status-message error";

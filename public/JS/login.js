@@ -1,6 +1,4 @@
-import { auth } from "./firebase-config.js";
-import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-
+// login.js - versión compat
 const CONFIG = {
   validation: {
     minPasswordLength: 8,
@@ -114,7 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
       loadingSpinner.style.display = "inline-flex";
 
       try {
-        await signInWithEmailAndPassword(auth, username, password);
+        await firebase.auth().signInWithEmailAndPassword(username, password);
 
         statusMessage.style.display = "block";
         statusMessage.className = "status-message success";

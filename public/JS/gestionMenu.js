@@ -1,15 +1,4 @@
-// gestionMenu.js
-import { db } from "./firebase-config.js";
-import {
-  collection,
-  addDoc,
-  getDocs,
-  deleteDoc,
-  updateDoc,
-  doc,
-  serverTimestamp
-} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
+// gestiónMenu.js - versión no modular (usando compat)
 const form = document.getElementById("menuForm");
 const status = document.getElementById("menu-status");
 const menuList = document.getElementById("menu-list");
@@ -31,17 +20,17 @@ form.addEventListener("submit", async (e) => {
   try {
     if (editId) {
       // Actualizar plato existente
-      const ref = doc(db, "menu", editId);
-      await updateDoc(ref, { nombre, precio, categoria });
+      const ref = firebase.firestore().collection("menu").doc(editId);
+      await ref.update({ nombre, precio, categoria });
       showStatus("Plato actualizado correctamente.", "success");
       editId = null;
     } else {
       // Crear nuevo plato
-      await addDoc(collection(db, "menu"), {
+      await firebase.firestore().collection("menu").add({
         nombre,
         precio,
         categoria,
-        createdAt: serverTimestamp()
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
       });
       showStatus("Plato guardado correctamente.", "success");
     }
@@ -61,7 +50,7 @@ function showStatus(msg, type) {
 }
 
 async function loadMenu() {
-  const snapshot = await getDocs(collection(db, "menu"));
+  const snapshot = await firebase.firestore().collection("menu").get();
   menuList.innerHTML = "";
 
   snapshot.forEach((docSnap) => {
@@ -78,7 +67,7 @@ async function loadMenu() {
   });
 }
 
-// Estas funciones se exponen para que funcionen en el HTML (por onclick)
+// Estas funciones se exponen para que funcionen en el HTML
 window.editPlato = (id, nombre, precio, categoria) => {
   document.getElementById("nombre").value = nombre;
   document.getElementById("precio").value = precio;
@@ -88,7 +77,7 @@ window.editPlato = (id, nombre, precio, categoria) => {
 
 window.deletePlato = async (id) => {
   if (confirm("¿Seguro que deseas eliminar este plato?")) {
-    await deleteDoc(doc(db, "menu", id));
+    await firebase.firestore().collection("menu").doc(id).delete();
     loadMenu();
     showStatus("Plato eliminado.", "success");
   }
